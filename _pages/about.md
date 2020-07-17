@@ -8,9 +8,13 @@ profile:
   align: top
   image: prof_pic.jpg
   address: >
-    <p><small><br/>Righ now, likelihood of finding me in one of these 3 cities is very high!</p>
-    <p>BOM || BLR || HYD</p>
+    <p><small><br/>likelihood of finding me in one of these 3 cities is very high!</p>
+    <p><b>BOM || BLR || HYD</b></p>
     <p>uddeshya.upa@gmail.com</p>
+    <p><a href="https://scholar.google.com/citations?user=Zgk0Z6kAAAAJ&hl=en">Google Scholar</a></p>
+    <p><a href="https://twitter.com/uddupa">Twitter</a></p>
+    <p><a href="https://github.com/udion/">Github</a></p>
+    <p><a href="https://www.linkedin.com/in/uddeshya-upa/">LinkedIn</a></p>
 
 news: true
 social: true
