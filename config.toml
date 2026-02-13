@@ -27,6 +27,10 @@ menu = [
     { name = "/about", url = "/about", weight = 3 },
 ]
 
+stylesheets = [
+    "custom.css",
+]
+
 socials = [
     { name = "linkedin", url = "https://www.linkedin.com/in/suyashpatel98", icon = "linkedin" },
     { name = "github", url = "https://github.com/suyashpatel98", icon = "github" },
