@@ -854,7 +854,7 @@ By 2023–2024, BYJU'S:
 
 ---
 
-## 8. Reading a Shark Tank Pitch — Putting It All Together
+## 8. Reading a Shark Tank Pitch
 
 Let's decode a fictional but realistic Shark Tank India pitch using everything we've learned:
 
