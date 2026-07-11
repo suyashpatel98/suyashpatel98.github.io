@@ -357,12 +357,18 @@ If your monthly churn is 2%, average customer stays 50 months.
 
 **Formula:**
 ```
-Gross Margin = (Revenue - COGS) / Revenue × 100
+Gross Margin = (Net Revenue - COGS) / Net Revenue × 100
 ```
 
 **What is COGS (Cost of Goods Sold)?**
 
 COGS = direct costs tied to producing/delivering your product or service. This is NOT your salaries, rent, or marketing. Those are Operating Expenses (OpEx).
+
+**Rule of thumb: does this cost grow as you serve more customers?**
+- If yes → COGS (e.g., server costs scale with users, delivery partner pay scales with orders)
+- If roughly fixed regardless of customer count → OpEx (e.g., engineer salaries, office rent)
+
+Note: "no sale = no cost" works for physical goods but breaks down for tech companies. A server farm exists before any sale, but it *scales* with usage — which is why it's COGS, not OpEx.
 
 | Business Type | What Goes in COGS |
 |---|---|
@@ -908,7 +914,7 @@ Post-Money Valuation = Pre-Money + New Investment
 
 Investor's Equity % = Investment / Post-Money Valuation
 
-Gross Margin % = (Revenue - COGS) / Revenue × 100
+Gross Margin % = (Net Revenue - COGS) / Net Revenue × 100
 
 LTV = Avg Order Value × Purchase Frequency × Customer Lifespan
 

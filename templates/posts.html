@@ -2,38 +2,19 @@
 
 
 {% block main_content %}
+    {% if section.extra.section_path -%}
+        {% set section = get_section(path=section.extra.section_path) %}
+    {% endif -%}
+
     {{ post_macros::page_header(title=section.title) }}
 
     <main class="list">
-        {% set hand_written = get_section(path="posts/hand-written/_index.md") %}
-        {% set ai_slop = get_section(path="posts/ai-slop/_index.md") %}
-        {% set ai_assisted = get_section(path="posts/ai-assisted/_index.md") %}
+        {%- if paginator %}
+            {%- set show_pages = paginator.pages -%}
+        {% else %}
+            {%- set show_pages = section.pages -%}
+        {% endif -%}
 
-        <section class="posts-category">
-            <h2 class="category-heading">Hand-Written</h2>
-            {% if hand_written.pages %}
-                {{ post_macros::list_posts(pages=hand_written.pages) }}
-            {% else %}
-                <p class="empty-category">No posts yet.</p>
-            {% endif %}
-        </section>
-
-        <section class="posts-category">
-            <h2 class="category-heading">AI Slop</h2>
-            {% if ai_slop.pages %}
-                {{ post_macros::list_posts(pages=ai_slop.pages) }}
-            {% else %}
-                <p class="empty-category">No posts yet.</p>
-            {% endif %}
-        </section>
-
-        <section class="posts-category">
-            <h2 class="category-heading">AI Assisted</h2>
-            {% if ai_assisted.pages %}
-                {{ post_macros::list_posts(pages=ai_assisted.pages) }}
-            {% else %}
-                <p class="empty-category">No posts yet.</p>
-            {% endif %}
-        </section>
+        {{ post_macros::list_posts(pages=show_pages) }}
     </main>
 {% endblock main_content %}
