@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="dark light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    
+    
+    
+    <title>
+         Generics Variance in Java
+        
+    </title>
+
+        
+            <meta property="og:title" content="Generics Variance in Java" />
+        
+     
+
+     
+         
+             <meta property="og:description" content="A comprehensive guide to understanding variance in Java generics: invariance, covariance, and contravariance." />
+         
+     
+
+     
+         
+             <meta name="description" content="A comprehensive guide to understanding variance in Java generics: invariance, covariance, and contravariance." />
+         
+    
+
+    
+    <link rel="icon" type="image/png" href=&#x2F;icons&#x2F;icon.png />
+
+    
+    
+        <link href=https://suyashpatel98.github.io/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="Suyash&#x27;s Blog" href="https://suyashpatel98.github.io/atom.xml">
+
+
+    
+    
+        <link rel="stylesheet" type="text/css" href=https://suyashpatel98.github.io/theme/light.css />
+        <link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://suyashpatel98.github.io/theme/dark.css" />
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://suyashpatel98.github.io/main.css />
+
+    
+        
+            <link rel="stylesheet" href="https://suyashpatel98.github.io/custom.css">
+        
+    
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-170818569-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-170818569-1');
+    </script>
+
+    <script async src="https://us.umami.is/script.js" data-website-id="2b0e0e64-98d6-464b-8574-2cb94d848738"></script>
+</head>
+
+<body>
+    <div class="content">
+        <header>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;suyashpatel98.github.io&#x2F;>Suyash&#x27;s Blog</a>
+
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;suyashpatel98" class="social">
+                <img alt=linkedin src="/social_icons/linkedin.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;suyashpatel98" class="social">
+                <img alt=github src="/social_icons/github.svg">
+            </a>
+            
+        </div>
+    </div>
+
+    <nav>
+        
+        <a href=&#x2F;about style="margin-left: 0.7em">&#x2F;about</a>
+        
+
+        
+        | <a id="dark-mode-toggle" onclick="toggleTheme()" href="javascript:void(0)">
+            <img src="/feather/sun.svg" id="sun-icon" style="filter: invert(1);" />
+            <img src="/feather/moon.svg" id="moon-icon" />
+        </a>
+        <script src=https://suyashpatel98.github.io/js/themetoggle.js></script>
+        
+    </nav>
+</header>
+
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        Generics Variance in Java<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2025-01-19</time>
+                    
+
+                    
+                </div>
+        </div>
+
+        
+
+        
+        
+            
+                <h1>Table of Contents</h1>
+                <ul>
+                
+                    <li>
+                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#generics-variance-in-java">Generics Variance in Java</a>
+                        
+                            <ul>
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#invariance-default-in-java">Invariance (Default in Java)</a>
+                                    </li>
+
+                                    
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#covariance-producer-use-extends">Covariance (Producer - use extends)</a>
+                                    </li>
+
+                                    
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#contravariance-consumer-use-super">Contravariance (Consumer - use super)</a>
+                                    </li>
+
+                                    
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#pecs-principle">PECS Principle</a>
+                                    </li>
+
+                                    
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#real-world-example">Real-World Example</a>
+                                    </li>
+
+                                    
+                                
+                                    <li>
+                                        <a href="https://suyashpatel98.github.io/posts/ai-slop/variance/#summary">Summary</a>
+                                    </li>
+
+                                    
+                                
+                            </ul>
+                        
+                    </li>
+                
+                </ul>
+            
+        
+
+        <section class="body">
+            <h1 id="generics-variance-in-java">Generics Variance in Java</h1>
+<p>Variance describes how subtyping between complex types (like <code>List&lt;Dog&gt;</code>) relates to subtyping between their component types (like <code>Dog</code> and <code>Animal</code>).</p>
+<h2 id="invariance-default-in-java">Invariance (Default in Java)</h2>
+<p>By default, Java generics are <strong>invariant</strong> - no subtyping relationship exists between generic types, even if their type parameters have a subtyping relationship.</p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">class Animal {}
+class Dog extends Animal {}
+class Cat extends Animal {}
+
+&#x2F;&#x2F; This does NOT compile - invariance
+List&lt;Animal&gt; animals = new ArrayList&lt;Dog&gt;(); &#x2F;&#x2F; ❌ Compile error
+</code></pre>
+<p>Even though <code>Dog</code> is a subtype of <code>Animal</code>, <code>List&lt;Dog&gt;</code> is NOT a subtype of <code>List&lt;Animal&gt;</code>. This prevents unsafe operations:</p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">&#x2F;&#x2F; If the above were allowed, we could do:
+animals.add(new Cat()); &#x2F;&#x2F; Would corrupt a list of Dogs!
+</code></pre>
+<h2 id="covariance-producer-use-extends">Covariance (Producer - use <code>extends</code>)</h2>
+<p><strong>Covariance</strong> allows reading from a generic type. Use <code>? extends T</code> when you only need to <strong>get</strong> values out.</p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">List&lt;? extends Animal&gt; animals = new ArrayList&lt;Dog&gt;(); &#x2F;&#x2F; ✅ OK
+Animal animal = animals.get(0); &#x2F;&#x2F; ✅ Can read as Animal
+
+animals.add(new Dog()); &#x2F;&#x2F; ❌ Cannot add - compiler doesn&#x27;t know exact type
+animals.add(new Animal()); &#x2F;&#x2F; ❌ Cannot add anything (except null)
+</code></pre>
+<p><strong>Use case - a method that processes any list of animals:</strong></p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">void printAnimals(List&lt;? extends Animal&gt; animals) {
+    for (Animal animal : animals) {
+        System.out.println(animal);
+    }
+}
+
+printAnimals(new ArrayList&lt;Dog&gt;()); &#x2F;&#x2F; ✅ Works
+printAnimals(new ArrayList&lt;Cat&gt;()); &#x2F;&#x2F; ✅ Works
+</code></pre>
+<h2 id="contravariance-consumer-use-super">Contravariance (Consumer - use <code>super</code>)</h2>
+<p><strong>Contravariance</strong> allows writing to a generic type. Use <code>? super T</code> when you only need to <strong>put</strong> values in.</p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">List&lt;? super Dog&gt; dogs = new ArrayList&lt;Animal&gt;(); &#x2F;&#x2F; ✅ OK
+dogs.add(new Dog()); &#x2F;&#x2F; ✅ Can add Dog or its subtypes
+
+Object obj = dogs.get(0); &#x2F;&#x2F; ✅ Can only read as Object (not useful)
+Dog dog = dogs.get(0); &#x2F;&#x2F; ❌ Cannot read as Dog
+</code></pre>
+<p><strong>Use case - a method that adds dogs to any compatible list:</strong></p>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">void addDogs(List&lt;? super Dog&gt; list) {
+    list.add(new Dog());
+    list.add(new Beagle()); &#x2F;&#x2F; Beagle extends Dog
+}
+
+addDogs(new ArrayList&lt;Dog&gt;()); &#x2F;&#x2F; ✅ Works
+addDogs(new ArrayList&lt;Animal&gt;()); &#x2F;&#x2F; ✅ Works
+addDogs(new ArrayList&lt;Object&gt;()); &#x2F;&#x2F; ✅ Works
+</code></pre>
+<h2 id="pecs-principle">PECS Principle</h2>
+<p><strong>Producer Extends, Consumer Super</strong> - a mnemonic for choosing variance:</p>
+<ul>
+<li><strong>Producer</strong> (you read from it): use <code>? extends T</code></li>
+<li><strong>Consumer</strong> (you write to it): use <code>? super T</code></li>
+</ul>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">&#x2F;&#x2F; Copy from source (producer) to dest (consumer)
+&lt;T&gt; void copy(List&lt;? extends T&gt; source, List&lt;? super T&gt; dest) {
+    for (T item : source) {
+        dest.add(item);
+    }
+}
+
+List&lt;Dog&gt; dogs = Arrays.asList(new Dog(), new Dog());
+List&lt;Animal&gt; animals = new ArrayList&lt;&gt;();
+copy(dogs, animals); &#x2F;&#x2F; ✅ Works perfectly
+</code></pre>
+<h2 id="real-world-example">Real-World Example</h2>
+<pre data-lang="java" class="language-java "><code class="language-java" data-lang="java">class AnimalShelter {
+    &#x2F;&#x2F; Covariant - accepts any list of animals to count
+    int countAnimals(List&lt;? extends Animal&gt; animals) {
+        return animals.size();
+    }
+    
+    &#x2F;&#x2F; Contravariant - adds rescued dogs to any compatible collection
+    void rescueDogs(List&lt;? super Dog&gt; collection) {
+        collection.add(new Dog());
+        collection.add(new Dog());
+    }
+}
+
+AnimalShelter shelter = new AnimalShelter();
+shelter.countAnimals(new ArrayList&lt;Dog&gt;()); &#x2F;&#x2F; ✅
+shelter.countAnimals(new ArrayList&lt;Cat&gt;()); &#x2F;&#x2F; ✅
+shelter.rescueDogs(new ArrayList&lt;Animal&gt;()); &#x2F;&#x2F; ✅
+</code></pre>
+<h2 id="summary">Summary</h2>
+<ul>
+<li><strong>Invariant</strong>: No flexibility, exact type match required</li>
+<li><strong>Covariant</strong> (<code>extends</code>): Read-only, flexible input</li>
+<li><strong>Contravariant</strong> (<code>super</code>): Write-only, flexible output</li>
+</ul>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+    </div>
+</body>
+
+</html>
